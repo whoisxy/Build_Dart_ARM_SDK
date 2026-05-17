@@ -1,4 +1,4 @@
-name: Main
+88name: Main
 # Controls when the action will run. 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -31,11 +31,11 @@ jobs:
         echo "=============================== new ls ==============="
         ls
         cat .gclient
-    - name: Update .gclient non-interactively
+    - name: Update .gclient
       run: |
         python - <<'PY'
         import io, pprint
-        path = ".gclient"
+        path = "dart-sdk/.gclient"
         ns = {}
         with open(path, "r", encoding="utf-8") as f:
           exec(f.read(), ns)

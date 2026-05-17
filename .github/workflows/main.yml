@@ -31,13 +31,27 @@ jobs:
         echo "=============================== new ls ==============="
         ls
         cat .gclient
-    - name: Update .gclient
-      uses: fjogeleit/yaml-update-action@main
-      with: 
-          valueFile: 'dart-sdk/.gclient'
-          propertyPath: 'custom_vars.download_android_deps'
-          value: 'true'
-          commitChange: false
+    - name: Update .gclient non-interactively
+      run: |
+        python - <<'PY'
+        import io, pprint
+        path = ".gclient"
+        ns = {}
+        with open(path, "r", encoding="utf-8") as f:
+        exec(f.read(), ns)
+        if "solutions" in ns and ns["solutions"]:
+          ns["solutions"][0]["custom_vars"] = {"download_android_deps": True}
+        vars_to_write = ["solutions", "deps"]  # adjust as required
+        out = io.StringIO()
+        for name in vars_to_write:
+          if name in ns:
+            out.write(f"{name} = ")
+            out.write(pprint.pformat(ns[name], width=120))
+            out.write("\n\n")
+         with open(path, "w", encoding="utf-8") as f:
+        f.write(out.getvalue())
+        print("Updated .gclient")
+        PY
     - name: sync
       run: |
         cd dart-sdk

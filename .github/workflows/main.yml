@@ -38,7 +38,7 @@ jobs:
         path = ".gclient"
         ns = {}
         with open(path, "r", encoding="utf-8") as f:
-        exec(f.read(), ns)
+          exec(f.read(), ns)
         if "solutions" in ns and ns["solutions"]:
           ns["solutions"][0]["custom_vars"] = {"download_android_deps": True}
         vars_to_write = ["solutions", "deps"]  # adjust as required

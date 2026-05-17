@@ -31,10 +31,7 @@ jobs:
         echo "=============================== new ls ==============="
         ls
         cat .gclient
-        wget https://raw.githubusercontent.com/whoisxy/Build_Dart_ARM_SDK/refs/heads/main/.gclient
-    - name: sync
-      run: |
-        cd dart-sdk
+        wget https://raw.githubusercontent.com/whoisxy/Build_Dart_ARM_SDK/refs/heads/main/.gclient -O .gclient
         cat .gclient
         gclient sync
     - name: Build SDK

@@ -23,7 +23,7 @@ jobs:
         export PATH="$PATH:$PWD/depot_tools"
         mkdir dart-sdk
         cd dart-sdk
-        fetch --no-history dart
+        fetch dart
         cd sdk
         git checkout ${{ github.event.inputs.TAG }}
         ls

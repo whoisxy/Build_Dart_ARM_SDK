@@ -39,7 +39,7 @@ jobs:
         export PATH="$PATH:$PWD/depot_tools"
         cd dart-sdk/sdk
         ls tools/bots
-        ./tools/build.py --no-goma -m release --arch=arm64 --os=android create_sdk
+        ./tools/build.py -m release --arch=arm64 --os=android create_sdk
     - name: Zip SDK
       run: |
         cd dart-sdk/sdk/out

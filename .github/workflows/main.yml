@@ -31,8 +31,17 @@ jobs:
         echo "=============================== new ls ==============="
         ls
         cat .gclient
-        echo '"custom_vars": { "download_android_deps": True, },' >> .gclient
-        echo "target_os = ['android']" >> .gclient
+    - name: Update .gclient
+      uses: fjogeleit/yaml-update-action@main
+      with: 
+          valueFile: 'dart-sdk/.gclient'
+          propertyPath: 'custom_vars.download_android_deps'
+          value: true
+          commitChange: false
+    - name: sync
+      run: |
+        cd dart-sdk
+        cat .gclient
         gclient sync
     - name: Build SDK
       run: |

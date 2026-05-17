@@ -8,7 +8,7 @@ on:
         description: 'Set a Tag'
         required: true
         default: ''
-
+permissions: write-all
 jobs:
   build-dart-sdk:
     runs-on: ubuntu-latest

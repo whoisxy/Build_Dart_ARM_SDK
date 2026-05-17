@@ -1,18 +1,13 @@
 name: Main
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  schedule:
-    - cron: 00 16 * * *
-  watch:
-    types: [started]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+      inputs:
+       TAG:
+        description: 'Set a Tag'
+        required: true
+        default: ''
 
 jobs:
   build-dart-sdk:
@@ -50,7 +45,7 @@ jobs:
         cd dart-sdk
         fetch dart
         cd sdk
-        git checkout master
+        git checkout ${{ github.event.inputs.TAG }}
         ls
         sed -i "s#/data/local/tmp#/data/data/com.termux/files/home/tmp#g" runtime/bin/directory_android.cc
         sed -n '431,433p' runtime/bin/directory_android.cc
@@ -80,6 +75,6 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         artifacts: "dart-sdk/sdk/out/*.zip"
-        tag: Dart-SDK-${{ steps.date.outputs.date }}
-        token: ${{ secrets.RELEASE_TOKEN }}
+        tag: Dart-SDK-${{ github.event.inputs.TAG }}-${{ steps.date.outputs.date }}
+        #token: ${{ secrets.RELEASE_TOKEN }}
         allowUpdates: true

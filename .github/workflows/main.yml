@@ -19,7 +19,7 @@ jobs:
         sudo apt-get install zip
     - name: Get Resource
       run: |
-        git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+        git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
         export PATH="$PATH:$PWD/depot_tools"
         mkdir dart-sdk
         cd dart-sdk

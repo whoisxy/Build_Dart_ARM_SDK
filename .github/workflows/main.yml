@@ -31,27 +31,7 @@ jobs:
         echo "=============================== new ls ==============="
         ls
         cat .gclient
-    - name: Update .gclient
-      run: |
-        python - <<'PY'
-        import io, pprint
-        path = "dart-sdk/.gclient"
-        ns = {}
-        with open(path, "r", encoding="utf-8") as f:
-          exec(f.read(), ns)
-        if "solutions" in ns and ns["solutions"]:
-          ns["solutions"][0]["custom_vars"] = {"download_android_deps": True}
-        vars_to_write = ["solutions", "deps"]  # adjust as required
-        out = io.StringIO()
-        for name in vars_to_write:
-          if name in ns:
-            out.write(f"{name} = ")
-            out.write(pprint.pformat(ns[name], width=120))
-            out.write("\n\n")
-        with open(path, "w", encoding="utf-8") as f:
-          f.write(out.getvalue())
-        print("Updated .gclient")
-        PY
+        wget https://raw.githubusercontent.com/whoisxy/Build_Dart_ARM_SDK/refs/heads/main/.gclient
     - name: sync
       run: |
         cd dart-sdk

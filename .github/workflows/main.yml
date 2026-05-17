@@ -28,6 +28,9 @@ jobs:
         git checkout ${{ github.event.inputs.TAG }}
         ls
         cd ../
+        echo "=============================== new ls ==============="
+        ls
+        cat .gclient
         echo '"custom_vars": { "download_android_deps": True, },' >> .gclient
         echo "target_os = ['android']" >> .gclient
         gclient sync

@@ -36,7 +36,7 @@ jobs:
       with: 
           valueFile: 'dart-sdk/.gclient'
           propertyPath: 'custom_vars.download_android_deps'
-          value: true
+          value: 'true'
           commitChange: false
     - name: sync
       run: |
